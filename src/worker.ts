@@ -42,6 +42,7 @@ ${TRUST_LEVELS.map(l => `<div class="level" style="border-color:${l.color}"><div
     }
 
     if (path === '/health') return json({ status: 'ok', vessel: 'increments-fleet-trust', fleet: 'cocapn' });
+  if (path === '/vessel.json') { try { const vj = await import('./vessel.json', { with: { type: 'json' } }); return new Response(JSON.stringify(vj.default || vj), { headers: { 'Content-Type': 'application/json' } }); } catch { return new Response('{}', { headers: { 'Content-Type': 'application/json' } }); } }
 
     if (path === '/api/trust/compute' && method === 'POST') {
       const body = await request.json();
